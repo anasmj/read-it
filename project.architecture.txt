@@ -19,7 +19,7 @@ lib
 │   ├── database.dart
 │   ├── database_service.dart
 │   └── database_provider.dart
-├── extensions
+├── extensions ├
 │   ├── date
 │   │   └── date_ext.dart
 │   ├── string
