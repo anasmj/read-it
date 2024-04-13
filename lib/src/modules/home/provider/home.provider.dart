@@ -1,10 +1,12 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pdf_text/pdf_text.dart';
 
 import '../model/home.model.dart';
 
-final textProvider = NotifierProvider<TextProvider, PdfModel>(TextProvider.new);
+final pdfProvider = NotifierProvider<TextProvider, PdfModel>(TextProvider.new);
 
 class TextProvider extends Notifier<PdfModel> {
   PDFDoc? pdfDoc;
@@ -25,6 +27,7 @@ class TextProvider extends Notifier<PdfModel> {
     state = state.copyWith(
       pdfDoc: pdfDoc,
       text: text,
+      pdfFile: File(pickedFile.path!),
     );
   }
 
