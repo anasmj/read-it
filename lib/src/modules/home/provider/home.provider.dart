@@ -1,19 +1,17 @@
-import 'dart:io';
-import 'dart:math';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pattern_m/src/utils/log/log.dart';
 import 'package:pdf_text/pdf_text.dart';
 
-final textProvider =
-    NotifierProvider<TextProvider, List<String>>(TextProvider.new);
+import '../model/home.model.dart';
 
-class TextProvider extends Notifier<List<String>> {
+final textProvider = NotifierProvider<TextProvider, PdfModel>(TextProvider.new);
+
+class TextProvider extends Notifier<PdfModel> {
+  PDFDoc? pdfDoc;
+  PDFDoc? get pdf => pdfDoc;
   @override
-  List<String> build() => [];
-  set setValue(String? s) => state = s!.split(' ');
-  Future pickPDFText() async {
+  PdfModel build() => PdfModel(currentPage: 1);
+  Future pickPDF() async {
     var result = await FilePicker.platform.pickFiles(
       allowMultiple: false,
       type: FileType.custom,
@@ -21,16 +19,31 @@ class TextProvider extends Notifier<List<String>> {
     );
     final pickedFile = result?.files.firstOrNull;
     if (pickedFile == null) return;
-    final file = File(pickedFile.path!);
-    final bytes = await file.readAsBytes();
-    try {
-      final pdfDoc = await PDFDoc.fromPath(result!.files.single.path!);
+    pdfDoc = await PDFDoc.fromPath(result!.files.single.path!);
+    if (pdfDoc == null) return;
+    String text = await pdfDoc!.pageAt(state.currentPage!).text;
+    state = state.copyWith(
+      pdfDoc: pdfDoc,
+      content: text.split(' '),
+    );
+  }
 
-      String text = await pdfDoc.pageAt(1).text;
-      print('text $text');
-      state = text.split(' ');
-    } catch (e) {
-      log.d(e);
-    }
+  Future<void> onNext() async {
+    final updatePage = state.currentPage! + 1;
+    await updatePagecontent(updatePage);
+  }
+
+  Future<void> onPrev() async {
+    if (state.currentPage! - 1 < 1) return;
+    final updatePage = state.currentPage! + 1;
+    await updatePagecontent(updatePage);
+  }
+
+  Future updatePagecontent(int page) async {
+    final nextPageContents = await pdfDoc!.pageAt(page).text;
+    state = state.copyWith(
+      content: nextPageContents.split(' '),
+      currentPage: page,
+    );
   }
 }

@@ -12,7 +12,8 @@ class HomeView extends ConsumerWidget {
   const HomeView({super.key});
   @override
   Widget build(BuildContext context, ref) {
-    final words = ref.watch(textProvider);
+    final words = ref.watch(textProvider).content;
+    final notifier = ref.read(textProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
@@ -37,22 +38,38 @@ class HomeView extends ConsumerWidget {
               flex: 6,
               child: SingleChildScrollView(
                 child: Wrap(
-                  children: List.generate(
-                    words.length,
-                    (index) => GestureDetector(
-                      onTap: () => print(words[index]),
-                      child: Text('${words[index]} '),
-                    ),
-                  ),
+                  children: words != null
+                      ? List.generate(
+                          words.length,
+                          (index) => GestureDetector(
+                            onTap: () => print(words[index]),
+                            child: Text('${words[index]} '),
+                          ),
+                        )
+                      : [],
                 ),
               ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: ref.read(textProvider.notifier).pickPDFText,
-        child: const Icon(Icons.upload),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: notifier.onPrev,
+          ),
+          IconButton(
+            icon: const Icon(Icons.arrow_forward),
+            onPressed: notifier.onNext,
+          ),
+          // const Icon(Icons.upload),
+          FloatingActionButton(
+            onPressed: ref.read(textProvider.notifier).pickPDF,
+            child: const Icon(Icons.upload),
+          )
+        ],
       ),
     );
   }
