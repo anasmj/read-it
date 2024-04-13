@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pattern_m/src/extensions/extensions.dart';
+import 'package:pattern_m/src/modules/home/model/tappable.text.dart';
 import 'package:pattern_m/src/modules/home/provider/home.provider.dart';
 
 import '../../router/provider/route.provider.dart';
@@ -12,11 +13,17 @@ class HomeView extends ConsumerWidget {
   const HomeView({super.key});
   @override
   Widget build(BuildContext context, ref) {
-    final words = ref.watch(textProvider).content;
+    final plainText = ref.watch(textProvider).text;
     final notifier = ref.read(textProvider.notifier);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text('Home'),
+            Text('${ref.watch(textProvider).currentPage}')
+          ],
+        ),
         actions: [
           IconButton(
             onPressed: () async => await fadePush(context, const SettingView()),
@@ -37,16 +44,11 @@ class HomeView extends ConsumerWidget {
             Expanded(
               flex: 6,
               child: SingleChildScrollView(
-                child: Wrap(
-                  children: words != null
-                      ? List.generate(
-                          words.length,
-                          (index) => GestureDetector(
-                            onTap: () => print(words[index]),
-                            child: Text('${words[index]} '),
-                          ),
-                        )
-                      : [],
+                child: TappableText(
+                  data: plainText ?? '',
+                  onTap: (s) {
+                    print(s);
+                  },
                 ),
               ),
             ),
@@ -56,15 +58,16 @@ class HomeView extends ConsumerWidget {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: notifier.onPrev,
-          ),
-          IconButton(
-            icon: const Icon(Icons.arrow_forward),
-            onPressed: notifier.onNext,
-          ),
-          // const Icon(Icons.upload),
+          if (ref.watch(textProvider).pdfDoc != null) ...[
+            IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: notifier.onPrev,
+            ),
+            IconButton(
+              icon: const Icon(Icons.arrow_forward),
+              onPressed: notifier.onNext,
+            ),
+          ],
           FloatingActionButton(
             onPressed: ref.read(textProvider.notifier).pickPDF,
             child: const Icon(Icons.upload),

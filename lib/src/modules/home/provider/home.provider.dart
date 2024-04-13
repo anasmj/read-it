@@ -24,25 +24,27 @@ class TextProvider extends Notifier<PdfModel> {
     String text = await pdfDoc!.pageAt(state.currentPage!).text;
     state = state.copyWith(
       pdfDoc: pdfDoc,
-      content: text.split(' '),
+      text: text,
     );
   }
 
   Future<void> onNext() async {
+    if (state.currentPage == state.pdfDoc!.length - 1) return;
     final updatePage = state.currentPage! + 1;
     await updatePagecontent(updatePage);
   }
 
   Future<void> onPrev() async {
     if (state.currentPage! - 1 < 1) return;
-    final updatePage = state.currentPage! + 1;
+    final updatePage = state.currentPage! - 1;
+
     await updatePagecontent(updatePage);
   }
 
   Future updatePagecontent(int page) async {
     final nextPageContents = await pdfDoc!.pageAt(page).text;
     state = state.copyWith(
-      content: nextPageContents.split(' '),
+      text: nextPageContents,
       currentPage: page,
     );
   }
