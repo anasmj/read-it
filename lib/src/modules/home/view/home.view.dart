@@ -5,7 +5,6 @@ import 'package:pattern_m/src/extensions/extensions.dart';
 import 'package:pattern_m/src/modules/drawer/app.drawer.dart';
 import 'package:pattern_m/src/modules/home/provider/home.provider.dart';
 import 'package:pattern_m/src/modules/home/view/component/empty.view.dart';
-
 import '../modules/pdf.content/view/pdf.content.dart';
 import 'component/pdf.view.dart';
 
@@ -32,9 +31,13 @@ class HomeView extends ConsumerWidget {
                   onPressed: notifier.onPrev,
                 ),
                 IconButton(
-                  icon: const Icon(Icons.arrow_forward_ios),
-                  onPressed: notifier.onNext,
-                ),
+                    icon: const Icon(Icons.arrow_forward_ios),
+                    onPressed: () async {
+                      TransparentLoading.push(context);
+                      await notifier.onNext();
+                      if (!context.mounted) return;
+                      Navigator.pop(context);
+                    }),
               ]
             : [],
       ),
@@ -55,6 +58,7 @@ class HomeView extends ConsumerWidget {
         onPressed: () async {
           TransparentLoading.push(context);
           await ref.read(pdfProvider.notifier).pickPDF();
+          if (!context.mounted) return;
           Navigator.pop(context);
         },
         child: const Icon(Icons.upload),

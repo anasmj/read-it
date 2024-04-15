@@ -1,10 +1,8 @@
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pattern_m/src/modules/home/provider/loading.provider.dart';
 import 'package:pdf_text/pdf_text.dart';
-
 import '../model/home.model.dart';
 
 final pdfProvider = NotifierProvider<TextProvider, PdfModel>(TextProvider.new);
@@ -46,7 +44,6 @@ class TextProvider extends Notifier<PdfModel> {
   Future<void> onPrev() async {
     if (state.currentPage! - 1 < 1) return;
     final updatePage = state.currentPage! - 1;
-
     await updatePagecontent(updatePage);
   }
 

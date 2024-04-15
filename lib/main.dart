@@ -9,7 +9,7 @@ import 'src/db/isar.dart' show openDB;
 void main() async => await _init().then(
       (_) => runApp(
         const ProviderScope(
-          child: MyApp(),
+          child: MyApp()
         ),
       ),
     );
