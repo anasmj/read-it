@@ -5,7 +5,7 @@ import 'package:pattern_m/src/modules/drawer/app.drawer.dart';
 import 'package:pattern_m/src/modules/home/provider/home.provider.dart';
 import 'package:pattern_m/src/modules/home/view/component/empty.view.dart';
 
-import 'component/content.view.dart';
+import '../modules/pdf.content/view/pdf.content.dart';
 import 'component/pdf.view.dart';
 
 final PageController _controller = PageController(initialPage: 0);
@@ -38,13 +38,16 @@ class HomeView extends ConsumerWidget {
             : [],
       ),
       body: file != null
-          ? PageView(
-              controller: _controller,
-              scrollDirection: Axis.horizontal,
-              children: const [
-                ContentView(),
-                PdfViewWidget(),
-              ],
+          ? Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: PageView(
+                controller: _controller,
+                scrollDirection: Axis.horizontal,
+                children: const [
+                  PdfContent(),
+                  PdfViewWidget(),
+                ],
+              ),
             )
           : const EmptyView(),
       floatingActionButton: FloatingActionButton(
