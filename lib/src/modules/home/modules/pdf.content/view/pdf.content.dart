@@ -4,6 +4,7 @@ import 'package:pattern_m/src/extensions/extensions.dart';
 import 'package:pattern_m/src/modules/home/modules/pdf.content/model/tappable.text.dart';
 import 'package:pattern_m/src/modules/home/modules/pdf.content/provider/meaning.provider.dart';
 import 'package:pattern_m/src/modules/home/provider/home.provider.dart';
+import 'package:pattern_m/src/modules/home/provider/loading.provider.dart';
 
 class PdfContent extends ConsumerWidget {
   const PdfContent({super.key});
@@ -12,6 +13,7 @@ class PdfContent extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final plainText = ref.watch(pdfProvider).text;
     final meaning = ref.watch(meaningProvider);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

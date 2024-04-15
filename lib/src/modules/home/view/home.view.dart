@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pattern_m/src/components/tranparent.loading.dart';
 import 'package:pattern_m/src/extensions/extensions.dart';
 import 'package:pattern_m/src/modules/drawer/app.drawer.dart';
 import 'package:pattern_m/src/modules/home/provider/home.provider.dart';
@@ -51,7 +52,11 @@ class HomeView extends ConsumerWidget {
             )
           : const EmptyView(),
       floatingActionButton: FloatingActionButton(
-        onPressed: ref.read(pdfProvider.notifier).pickPDF,
+        onPressed: () async {
+          TransparentLoading.push(context);
+          await ref.read(pdfProvider.notifier).pickPDF();
+          Navigator.pop(context);
+        },
         child: const Icon(Icons.upload),
       ),
     );
