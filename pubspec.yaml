@@ -47,6 +47,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/dictionary/
 
 import_sorter:
   comments: false

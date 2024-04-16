@@ -9,6 +9,14 @@ class MeaningProvider extends Notifier<WordMeaning?> {
   WordMeaning? build() => WordMeaning();
 
   Future<void> getMeaning(String word) async {
-    state = state?.copyWith(word: word, meanings: [word]);
+    state = state?.copyWith(
+      word: _removeSpecialCharacters(word),
+      meanings: [word],
+    );
+  }
+
+  String _removeSpecialCharacters(String word) {
+    RegExp pattern = RegExp(r'^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$');
+    return word.replaceAll(pattern, '');
   }
 }
