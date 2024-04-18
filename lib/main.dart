@@ -1,16 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show WidgetsFlutterBinding, runApp;
 import 'package:flutter/services.dart' show DeviceOrientation, SystemChrome;
-
 import 'package:flutter_riverpod/flutter_riverpod.dart' show ProviderScope;
+import 'package:pattern_m/src/modules/dictionary/api/e2b.dictionary.dart';
 
 import 'src/app.dart' show MyApp;
 import 'src/db/isar.dart' show openDB;
 
 void main() async => await _init().then(
       (_) => runApp(
-        const ProviderScope(
-          child: MyApp()
-        ),
+        const ProviderScope(child: MyApp()),
       ),
     );
 
@@ -18,4 +17,5 @@ Future<void> _init() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await openDB();
+  compute((message) => null, initDictionary());
 }
