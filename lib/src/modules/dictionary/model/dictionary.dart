@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'word.dart';
+import 'word.meaning.dart';
 
 class Dictionary {
-  final List<Word> words;
+  final List<WordMeaning> words;
   Dictionary({required this.words});
 
-  Dictionary copyWith({List<Word>? words}) {
+  Dictionary copyWith({List<WordMeaning>? words}) {
     return Dictionary(words: words ?? this.words);
   }
 
@@ -20,7 +20,7 @@ class Dictionary {
 
   factory Dictionary.fromMap(Map<String, dynamic> map) {
     return Dictionary(
-      words: (map['words'] as List).map((e) => Word.fromMap(e)).toList(),
+      words: (map['words'] as List).map((e) => WordMeaning.fromMap(e)).toList(),
     );
   }
 

@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-class Word {
+class WordMeaning {
   final String en;
   final String bn;
-  Word({
+  WordMeaning({
     required this.en,
     required this.bn,
   });
 
-  Word copyWith({
+  WordMeaning copyWith({
     String? en,
     String? bn,
   }) {
-    return Word(
+    return WordMeaning(
       en: en ?? this.en,
       bn: bn ?? this.bn,
     );
@@ -25,8 +25,8 @@ class Word {
     };
   }
 
-  factory Word.fromMap(Map<String, dynamic> map) {
-    return Word(
+  factory WordMeaning.fromMap(Map<String, dynamic> map) {
+    return WordMeaning(
       en: map['en'] as String,
       bn: map['bn'] as String,
     );
@@ -34,18 +34,17 @@ class Word {
 
   String toJson() => json.encode(toMap());
 
-  factory Word.fromJson(String source) => Word.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory WordMeaning.fromJson(String source) =>
+      WordMeaning.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'Word(en: $en, bn: $bn)';
+  String toString() => 'WordMeaning(en: $en, bn: $bn)';
 
   @override
-  bool operator ==(covariant Word other) {
+  bool operator ==(covariant WordMeaning other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.en == en &&
-      other.bn == bn;
+
+    return other.en == en && other.bn == bn;
   }
 
   @override

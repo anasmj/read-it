@@ -17,9 +17,11 @@ class SettingView extends StatelessWidget {
           builder: (_, ref, __) {
             final theme = ref.watch(themeProvider);
             return ElevatedButton(
-              onPressed: () async => await ref.read(themeProvider.notifier).toggleTheme(),
-              child:
-                  theme == ThemeProfile.dark ? const Text('Change Theme to Light') : const Text('Change Theme to Dark'),
+              onPressed: () async =>
+                  await ref.read(themeProvider.notifier).toggleTheme(),
+              child: theme == ThemeProfile.dark
+                  ? const Text('Change Theme to Light')
+                  : const Text('Change Theme to Dark'),
             );
           },
         ),

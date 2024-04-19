@@ -14,6 +14,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+  
     return MaterialApp(
       localizationsDelegates: localizationsDelegates,
       theme: ref.watch(themeProvider).theme,

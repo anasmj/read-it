@@ -1,8 +1,10 @@
 import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pattern_m/src/modules/home/provider/loading.provider.dart';
 import 'package:pdf_text/pdf_text.dart';
+
 import '../model/home.model.dart';
 
 final pdfProvider = NotifierProvider<TextProvider, PdfModel>(TextProvider.new);
@@ -10,6 +12,7 @@ final pdfProvider = NotifierProvider<TextProvider, PdfModel>(TextProvider.new);
 class TextProvider extends Notifier<PdfModel> {
   PDFDoc? pdfDoc;
   PDFDoc? get pdf => pdfDoc;
+  String? content;
   @override
   PdfModel build() => PdfModel(currentPage: 1);
   Future pickPDF() async {
@@ -21,6 +24,7 @@ class TextProvider extends Notifier<PdfModel> {
     );
     final pickedFile = result?.files.firstOrNull;
     if (pickedFile == null) return;
+    ref.invalidate(pdfProvider);
     ref.read(loadingProvider.notifier).isLoading = true;
     pdfDoc = await PDFDoc.fromPath(result!.files.single.path!);
     ref.read(loadingProvider.notifier).isLoading = false;
@@ -37,17 +41,17 @@ class TextProvider extends Notifier<PdfModel> {
     if (state.currentPage == state.pdfDoc!.length - 1) return;
     final updatePage = state.currentPage! + 1;
     ref.read(loadingProvider.notifier).isLoading = true;
-    await updatePagecontent(updatePage);
+    await _updatePagecontent(updatePage);
     ref.read(loadingProvider.notifier).isLoading = false;
   }
 
   Future<void> onPrev() async {
     if (state.currentPage! - 1 < 1) return;
     final updatePage = state.currentPage! - 1;
-    await updatePagecontent(updatePage);
+    await _updatePagecontent(updatePage);
   }
 
-  Future updatePagecontent(int page) async {
+  Future _updatePagecontent(int page) async {
     final nextPageContents = await pdfDoc!.pageAt(page).text;
     state = state.copyWith(
       text: nextPageContents,

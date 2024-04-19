@@ -1,18 +1,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pattern_m/src/modules/home/modules/pdf.content/model/word.meaning.dart';
+import 'package:pattern_m/src/modules/dictionary/api/e2b.dictionary.dart';
+import 'package:pattern_m/src/modules/dictionary/model/word.meaning.dart';
 
 final meaningProvider =
     NotifierProvider<MeaningProvider, WordMeaning?>(MeaningProvider.new);
 
 class MeaningProvider extends Notifier<WordMeaning?> {
   @override
-  WordMeaning? build() => WordMeaning();
+  WordMeaning? build() => null;
 
   Future<void> getMeaning(String word) async {
-    state = state?.copyWith(
-      word: _removeSpecialCharacters(word),
-      meanings: [word],
-    );
+    final source = _removeSpecialCharacters(word);
+    try {
+      state = e2bDictionary.words.singleWhere((word) => word.en == source);
+    } catch (e) {
+      state = WordMeaning(en: source, bn: source);
+    }
   }
 
   String _removeSpecialCharacters(String word) {

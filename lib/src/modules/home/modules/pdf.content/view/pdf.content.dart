@@ -17,10 +17,22 @@ class PdfContent extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: Text(
-            key: ValueKey(meaning?.word),
-            meaning?.word ?? '',
-            style: context.text.headlineMedium,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  // key: ,
+                  meaning?.en ?? '',
+                  style: context.text.headlineMedium,
+                ),
+                Text(
+                  // key: ValueKey(meaning?.en),
+                  meaning?.bn ?? '',
+                  style: context.text.titleMedium,
+                ),
+              ],
+            ),
           ),
         ),
         Expanded(
