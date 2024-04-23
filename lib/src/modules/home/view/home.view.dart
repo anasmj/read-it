@@ -58,10 +58,8 @@ class HomeView extends ConsumerWidget {
           : const EmptyView(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          TransparentLoading.push(context);
           await ref.read(pdfProvider.notifier).pickPDF();
           if (!context.mounted) return;
-          Navigator.pop(context);
         },
         child: const Icon(Icons.upload),
       ),

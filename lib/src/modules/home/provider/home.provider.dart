@@ -24,7 +24,7 @@ class TextProvider extends Notifier<PdfModel> {
     );
     final pickedFile = result?.files.firstOrNull;
     if (pickedFile == null) return;
-    ref.invalidate(pdfProvider);
+    ref.invalidateSelf();
     ref.read(loadingProvider.notifier).isLoading = true;
     pdfDoc = await PDFDoc.fromPath(result!.files.single.path!);
     ref.read(loadingProvider.notifier).isLoading = false;

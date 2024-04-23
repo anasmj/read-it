@@ -14,7 +14,7 @@ class PdfViewWidget extends ConsumerWidget {
       child: PDFView(
         filePath: ref.watch(pdfProvider).pdfFile!.path,
         defaultPage: ref.watch(pdfProvider).currentPage! - 1,
-        enableSwipe: false,
+        enableSwipe: true,
         nightMode: ref.watch(themeProvider) == ThemeProfile.dark,
       ),
     );
