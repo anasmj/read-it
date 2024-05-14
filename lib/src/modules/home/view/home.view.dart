@@ -3,10 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pattern_m/src/components/tranparent.loading.dart';
 import 'package:pattern_m/src/extensions/extensions.dart';
 import 'package:pattern_m/src/modules/drawer/app.drawer.dart';
+import 'package:pattern_m/src/modules/home/modules/pdf.content/view/pdf.content.dart';
 import 'package:pattern_m/src/modules/home/provider/home.provider.dart';
 import 'package:pattern_m/src/modules/home/view/component/empty.view.dart';
-
-import '../modules/pdf.content/view/pdf.content.dart';
 import 'component/pdf.view.dart';
 
 final PageController _controller = PageController(initialPage: 0);
@@ -50,8 +49,8 @@ class HomeView extends ConsumerWidget {
                 controller: _controller,
                 scrollDirection: Axis.horizontal,
                 children: const [
-                  PdfViewWidget(),
                   PdfContent(),
+                  PdfViewWidget(),
                 ],
               ),
             )

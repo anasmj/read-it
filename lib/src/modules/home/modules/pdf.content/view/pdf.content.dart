@@ -16,26 +16,24 @@ class PdfContent extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Flexible(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                // key: ,
-                meaning?.en ?? '',
-                style: context.text.headlineMedium,
-              ),
-              Text(
-                // key: ValueKey(meaning?.en),
-                meaning?.bn ?? '',
-                style: context.text.titleMedium,
-              ),
-            ],
-          ),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              meaning?.en ?? '',
+              style: context.text.headlineMedium,
+            ),
+            Text(
+              meaning?.bn ?? '',
+              style: context.text.titleMedium,
+            ),
+          ],
         ),
+        const SizedBox(height: 10),
+        const Divider(),
+        const SizedBox(height: 10),
         Expanded(
-          flex: 6,
           child: SingleChildScrollView(
             child: TappableText(
               data: plainText ?? '',
@@ -43,7 +41,6 @@ class PdfContent extends ConsumerWidget {
             ),
           ),
         ),
-        const SizedBox(height: 20),
       ],
     );
   }
