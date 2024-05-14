@@ -16,23 +16,22 @@ class PdfContent extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  // key: ,
-                  meaning?.en ?? '',
-                  style: context.text.headlineMedium,
-                ),
-                Text(
-                  // key: ValueKey(meaning?.en),
-                  meaning?.bn ?? '',
-                  style: context.text.titleMedium,
-                ),
-              ],
-            ),
+        Flexible(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                // key: ,
+                meaning?.en ?? '',
+                style: context.text.headlineMedium,
+              ),
+              Text(
+                // key: ValueKey(meaning?.en),
+                meaning?.bn ?? '',
+                style: context.text.titleMedium,
+              ),
+            ],
           ),
         ),
         Expanded(
@@ -49,3 +48,47 @@ class PdfContent extends ConsumerWidget {
     );
   }
 }
+// class PdfContent extends ConsumerWidget {
+//   const PdfContent({super.key});
+
+//   @override
+//   Widget build(BuildContext context, ref) {
+//     final plainText = ref.watch(pdfProvider).text;
+//     final meaning = ref.watch(meaningProvider);
+
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Expanded(
+//           child: SingleChildScrollView(
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   // key: ,
+//                   meaning?.en ?? '',
+//                   style: context.text.headlineMedium,
+//                 ),
+//                 Text(
+//                   // key: ValueKey(meaning?.en),
+//                   meaning?.bn ?? '',
+//                   style: context.text.titleMedium,
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//         Expanded(
+//           flex: 6,
+//           child: SingleChildScrollView(
+//             child: TappableText(
+//               data: plainText ?? '',
+//               onTap: ref.read(meaningProvider.notifier).getMeaning,
+//             ),
+//           ),
+//         ),
+//         const SizedBox(height: 20),
+//       ],
+//     );
+//   }
+// }
