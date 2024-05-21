@@ -15,7 +15,7 @@ class PdfViewWidget extends ConsumerWidget {
     return SizedBox.expand(
       child: PDFView(
         filePath: ref.watch(fileProvider)!.path,
-        defaultPage: ref.watch(pageNumberProvider) - 1,
+        defaultPage: ref.watch(pageNumberProvider),
         enableSwipe: true,
         nightMode: ref.watch(themeProvider) == ThemeProfile.dark,
         onPageChanged: (page, pageCount) => notifier.setPage(page!),

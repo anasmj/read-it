@@ -4,7 +4,7 @@ final pageNumberProvider = NotifierProvider<PageNum, int>(PageNum.new);
 
 class PageNum extends Notifier<int> {
   @override
-  int build() => 1;
+  int build() => 0;
 
   void next() => state = state + 1;
   void previous() => state = state < 1 ? state - 1 : state;
