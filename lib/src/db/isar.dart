@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart' show kReleaseMode;
 
 import 'package:isar/isar.dart' show Isar;
-import 'package:pattern_m/src/modules/setting/model/opened.file.detail.dart';
 
+import '../modules/home.dart/models/opened.file.detail.dart';
 import '../modules/setting/model/setting.model.dart' show AppSettingSchema;
 import 'paths.dart' show AppDir, appDir, initDir;
 

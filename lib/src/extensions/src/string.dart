@@ -7,6 +7,11 @@ extension StringUtils on String {
 
   List<String> get words => split(' ');
 
+  String getLast(String divider) {
+    final phrases = split(divider);
+    return phrases.length > 1 ? phrases.last : this;
+  }
+
   String get capitalize => '${this[0].toUpperCase()}${substring(1)}';
 
   bool hasMatch(String v) => toLowerCase().contains(v.toLowerCase());

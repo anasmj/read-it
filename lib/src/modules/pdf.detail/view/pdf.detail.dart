@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pattern_m/src/extensions/extensions.dart';
-import 'package:pattern_m/src/modules/drawer/app.drawer.dart';
 import 'package:pattern_m/src/modules/pdf.detail/provider/file.provider.dart';
 import 'package:pattern_m/src/modules/pdf.detail/provider/mode.provider.dart';
 import 'package:pattern_m/src/modules/pdf.detail/provider/page.num.provider.dart';
@@ -19,7 +18,6 @@ class PdfDetail extends ConsumerWidget {
     final readMode = ref.watch(modeProvider);
 
     return Scaffold(
-      drawer: const AppDrawer(),
       appBar: AppBar(
         actions: ref.watch(fileProvider) != null
             ? [
