@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pattern_m/src/modules/home/provider/file.provider.dart';
-import 'package:pattern_m/src/modules/home/provider/page.num.provider.dart';
+import 'package:pattern_m/src/modules/pdf.detail/provider/file.provider.dart';
+import 'package:pattern_m/src/modules/pdf.detail/provider/page.num.provider.dart';
 import 'package:pattern_m/src/theme/model/theme.model.dart';
 import 'package:pattern_m/src/theme/provider/theme.provider.dart';
 

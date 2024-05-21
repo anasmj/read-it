@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pattern_m/src/extensions/extensions.dart';
-import 'package:pattern_m/src/modules/home/modules/pdf.content/model/tappable.text.dart';
-import 'package:pattern_m/src/modules/home/modules/pdf.content/provider/meaning.provider.dart';
-import 'package:pattern_m/src/modules/home/provider/plain.text.provider.dart';
+import 'package:pattern_m/src/modules/pdf.detail/modules/pdf.content/model/tappable.text.dart';
+import 'package:pattern_m/src/modules/pdf.detail/modules/pdf.content/provider/meaning.provider.dart';
+import 'package:pattern_m/src/modules/pdf.detail/provider/plain.text.provider.dart';
 
 class AssistView extends ConsumerWidget {
   const AssistView({super.key});
