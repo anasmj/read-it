@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:pattern_m/src/modules/router/provider/route.provider.dart';
 import 'package:pattern_m/src/modules/setting/view/setting.view.dart';
 

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:pattern_m/src/extensions/extensions.dart';
 import 'package:pattern_m/src/modules/pdf.detail/modules/pdf.content/model/tappable.text.dart';
 import 'package:pattern_m/src/modules/pdf.detail/modules/pdf.content/provider/meaning.provider.dart';
-import 'package:pattern_m/src/modules/pdf.detail/provider/plain.text.provider.dart';
+import 'package:pattern_m/src/modules/pdf.detail/provider/detail.provider.dart';
 
 class AssistView extends ConsumerWidget {
   const AssistView({super.key});
@@ -11,7 +13,7 @@ class AssistView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final meaning = ref.watch(meaningProvider);
-    return ref.watch(plainTextProvier).when(
+    return ref.watch(plainTextProvider).when(
           error: (e, s) {
             return Text('Error: $e');
           },

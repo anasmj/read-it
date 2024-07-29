@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pattern_m/src/extensions/extensions.dart';
-import 'package:pattern_m/src/modules/pdf.detail/provider/file.provider.dart';
-import 'package:pattern_m/src/modules/pdf.detail/view/pdf.detail.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:pattern_m/src/extensions/extensions.dart';
+import 'package:pattern_m/src/modules/pdf.detail/provider/detail.provider.dart';
+import 'package:pattern_m/src/modules/pdf.detail/view/pdf.detail.dart';
 import '../../drawer/app.drawer.dart';
-import '../provider/opened.files.provider.dart';
-import '../provider/provider.dart';
+import '../provider/home.provider.dart';
 import 'components/files.body.dart';
 
 class Home extends ConsumerWidget {
@@ -19,7 +19,7 @@ class Home extends ConsumerWidget {
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: AppBar(),
-      body: ref.watch(allOpenedFiles).when(
+      body: ref.watch(openedFilesProvider).when(
             //make sure file is not null here
             data: (files) => const FilesBody(),
             error: (e, s) => const Text('Error'),
@@ -39,7 +39,7 @@ class Home extends ConsumerWidget {
     final pickedFile = File(pickedPlatformFile.path!);
     await updateDB(pickedFile);
 
-    ref.read(fileProvider.notifier).update = pickedFile;
+    ref.read(selectedPDFProvider.notifier).update = pickedFile;
 
     if (!context.mounted) return;
     context.push(const PdfDetail());

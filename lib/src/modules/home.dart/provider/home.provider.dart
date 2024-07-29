@@ -2,9 +2,21 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:isar/isar.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:pattern_m/src/db/isar.dart';
 import 'package:pattern_m/src/extensions/extensions.dart';
 import 'package:pattern_m/src/modules/home.dart/models/opened.file.detail.dart';
+
+part 'home.provider.g.dart';
+
+@riverpod
+class OpenedFiles extends _$OpenedFiles {
+  @override
+  Future<List<OpenedFileDetail>> build() async {
+    return db.openedFileDetails.where().findAll();
+  }
+}
 
 Future<PlatformFile?> pickPDF() async {
   var result = await FilePicker.platform.pickFiles(

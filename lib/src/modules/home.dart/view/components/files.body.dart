@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:pattern_m/src/extensions/extensions.dart';
 import 'package:pattern_m/src/modules/home.dart/models/opened.file.detail.dart';
-import 'package:pattern_m/src/modules/home.dart/provider/opened.files.provider.dart';
+import 'package:pattern_m/src/modules/home.dart/provider/home.provider.dart';
 
 class FilesBody extends ConsumerWidget {
   const FilesBody({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
-    final files = ref.watch(allOpenedFiles).value;
+    final files = ref.watch(openedFilesProvider).value;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(

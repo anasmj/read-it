@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:pattern_m/src/modules/dictionary/api/e2b.dictionary.dart';
 import 'package:pattern_m/src/modules/dictionary/model/word.meaning.dart';
 

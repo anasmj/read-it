@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+
 import 'package:pattern_m/src/modules/dictionary/model/dictionary.dart';
 
 late final Dictionary e2bDictionary;
