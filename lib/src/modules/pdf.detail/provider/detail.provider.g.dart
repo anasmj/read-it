@@ -6,12 +6,11 @@ part of 'detail.provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$selectedPDFHash() => r'337ba1c25de0c5b2bb6988c643a089212ea8a388';
+String _$selectedPDFHash() => r'a509c4ca566dc58cdbb02b5904f1ccb21dae12ff';
 
 /// See also [SelectedPDF].
 @ProviderFor(SelectedPDF)
-final selectedPDFProvider =
-    AutoDisposeNotifierProvider<SelectedPDF, File?>.internal(
+final selectedPDFProvider = NotifierProvider<SelectedPDF, File?>.internal(
   SelectedPDF.new,
   name: r'selectedPDFProvider',
   debugGetCreateSourceHash:
@@ -20,7 +19,7 @@ final selectedPDFProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$SelectedPDF = AutoDisposeNotifier<File?>;
+typedef _$SelectedPDF = Notifier<File?>;
 String _$loadingHash() => r'7dbd4e60e09c4e1a7f1a8922cbd61f88f9725597';
 
 /// See also [Loading].

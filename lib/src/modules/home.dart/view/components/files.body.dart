@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:pattern_m/src/extensions/extensions.dart';
 import 'package:pattern_m/src/modules/home.dart/models/opened.file.detail.dart';
-import 'package:pattern_m/src/modules/home.dart/provider/home.provider.dart';
+import 'package:pattern_m/src/modules/pdf.detail/provider/detail.provider.dart';
 
 class FilesBody extends ConsumerWidget {
   const FilesBody({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
-    final files = ref.watch(openedFilesProvider).value;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
@@ -22,16 +19,25 @@ class FilesBody extends ConsumerWidget {
             style: context.text.headlineSmall,
           ),
           Expanded(
-            child: GridView.builder(
-              itemCount: files!.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 2 / 1,
-              ),
-              itemBuilder: (context, index) =>
-                  FileContainer(detail: files[index]),
-            ),
-          )
+            child: ref.watch(usersStreamProvider).when(
+                  data: (recentFiles) {
+                    return Text('${recentFiles.length}');
+                  },
+                  error: (e, s) => const Text('err'),
+                  loading: () => const Text('Loading'),
+                ),
+          ),
+          // Expanded(
+          //   child: GridView.builder(
+          //     itemCount: files.length,
+          //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          //       crossAxisCount: 2,
+          //       childAspectRatio: 2 / 1,
+          //     ),
+          //     itemBuilder: (context, index) =>
+          //         FileContainer(detail: files[index]),
+          //   ),
+          // ),
         ],
       ),
     );
