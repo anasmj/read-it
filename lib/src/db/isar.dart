@@ -6,7 +6,7 @@ import '../modules/home.dart/models/opened.file.detail.dart';
 import '../modules/setting/model/setting.model.dart' show AppSettingSchema;
 import 'paths.dart' show AppDir, appDir, initDir;
 
-const _schema = [AppSettingSchema, OpenedFileDetailSchema];
+const _schema = [AppSettingSchema, RecentFileSchema];
 late final Isar db;
 
 Future<void> openDB() async {

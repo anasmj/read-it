@@ -8,15 +8,11 @@ import 'package:pattern_m/src/db/isar.dart';
 import 'package:pattern_m/src/extensions/extensions.dart';
 import 'package:pattern_m/src/modules/home.dart/models/opened.file.detail.dart';
 
-part 'home.provider.g.dart';
-
-@riverpod
-class OpenedFiles extends _$OpenedFiles {
-  @override
-  Future<List<OpenedFileDetail>> build() async {
-    return db.openedFileDetails.where().findAll();
-  }
-}
+final recentFilesProvider = StreamProvider<List<RecentFile>>((ref) {
+  return db.recentFiles.watchLazy(fireImmediately: true).asyncMap((_) async {
+    return await db.recentFiles.where().findAll();
+  });
+});
 
 Future<PlatformFile?> pickPDF() async {
   var result = await FilePicker.platform.pickFiles(
@@ -30,11 +26,11 @@ Future<PlatformFile?> pickPDF() async {
 Future updateDB(File file) async {
   final fileName = file.path.getLast('/');
   final savedFile =
-      await db.openedFileDetails.filter().pathEndsWith(fileName).findFirst();
+      await db.recentFiles.filter().pathEndsWith(fileName).findFirst();
   if (savedFile != null) {
     ///Update last open time
     await db.writeTxn(() async {
-      await db.openedFileDetails.put(
+      await db.recentFiles.put(
         savedFile..lastOpen = DateTime.now(),
       ); // Insertion & modification
     });
@@ -42,8 +38,8 @@ Future updateDB(File file) async {
     //insert as new
     await db.writeTxn(
       () async {
-        await db.openedFileDetails.put(
-          OpenedFileDetail(
+        await db.recentFiles.put(
+          RecentFile(
             path: file.path.trim(),
             lastOpen: DateTime.now(),
             isLastOpened: true,

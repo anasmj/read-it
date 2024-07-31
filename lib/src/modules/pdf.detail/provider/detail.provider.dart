@@ -1,18 +1,10 @@
 import 'dart:io';
 
-import 'package:isar/isar.dart';
-import 'package:pattern_m/src/db/isar.dart';
-import 'package:pattern_m/src/modules/home.dart/models/opened.file.detail.dart';
 import 'package:pdf_text/pdf_text.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'detail.provider.g.dart';
 
-final usersStreamProvider = StreamProvider<List<OpenedFileDetail>>((ref) {
-  return db.openedFileDetails.watchLazy(fireImmediately: true).asyncMap((_) async {
-    return await db.openedFileDetails.where().findAll();
-  });
-});
 
 @Riverpod(keepAlive: true)
 class SelectedPDF extends _$SelectedPDF {

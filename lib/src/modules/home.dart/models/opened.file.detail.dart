@@ -3,14 +3,14 @@ import 'package:isar/isar.dart';
 part 'opened.file.detail.g.dart';
 
 @Collection()
-class OpenedFileDetail {
+class RecentFile {
   Id id = Isar.autoIncrement;
   String? path;
   DateTime? lastOpen;
   List<byte>? fileData;
   bool? isLastOpened;
 
-  OpenedFileDetail({
+  RecentFile({
     this.path,
     this.lastOpen,
     this.fileData,
